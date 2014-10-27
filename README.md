@@ -22,3 +22,6 @@ The input is parsed and stored in a CSV file and then read from there to output 
 <li>Input the sudoku puzzle.</li>
 <li>Get the output in out.csv in the root folder</li>
 </ol>
+
+<h3>References</h3>
+http://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
