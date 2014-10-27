@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class SudokuMain {
 	static int length;
 	static int numberOfBox1;
-
+	//Main Function
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		int[][] matrix=  readFromUser();
@@ -24,7 +24,7 @@ public class SudokuMain {
 		} else
 			System.out.println("NONE");
 	}
-
+	//Reads Data from user
 	private static int[][] readFromUser() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter the n in nxn matrix:\t");
@@ -42,7 +42,7 @@ public class SudokuMain {
 		return in;
 
 	}
-
+	//write Data in a csv file
 	private static synchronized void writeInCSV(int[][] matrix, int path) {
 		try {
 			FileWriter writer;
@@ -71,14 +71,15 @@ public class SudokuMain {
 			e.printStackTrace();
 		}
 	}
-
+	//Solving a sudoku puzzle by backtracking using recursion
 	static boolean problemSolving(int i, int j, int[][] cells) {
 		if (i == length) {
 			i = 0;
 			if (++j == length)
 				return true;
 		}
-		if (cells[i][j] != 0) // skip filled cells
+		//Skip cell if not zero
+		if (cells[i][j] != 0) 
 			return problemSolving(i + 1, j, cells);
 
 		for (int val = 1; val <= length; ++val) {
@@ -88,32 +89,30 @@ public class SudokuMain {
 					return true;
 			}
 		}
-		cells[i][j] = 0; // reset on backtrack
+		//do backtracking
+		cells[i][j] = 0; 
 		return false;
 	}
-
+	//validation of the criteria for row, column and box
 	static boolean isValide(int i, int j, int val, int[][] cells) {
 		for (int k = 0; k < length; ++k)
-			// row
 			if (val == cells[k][j])
 				return false;
 
 		for (int k = 0; k < length; ++k)
-			// col
 			if (val == cells[i][k])
 				return false;
 
 		int boxRowOffset = (i / numberOfBox1) * numberOfBox1;
 		int boxColOffset = (j / numberOfBox1) * numberOfBox1;
 		for (int k = 0; k < numberOfBox1; ++k)
-			// box
 			for (int m = 0; m < numberOfBox1; ++m)
 				if (val == cells[boxRowOffset + k][boxColOffset + m])
 					return false;
 
-		return true; // no violations, so it's legal
+		return true; 
 	}
-
+	//displays the matrix in console
 	private static void display(int[][] matrix, int length) {
 		double numberOfBox = Math.sqrt((double) length);
 		numberOfBox1 = (int) numberOfBox;
@@ -132,7 +131,7 @@ public class SudokuMain {
 		}
 		System.out.println(" -----------------------");
 	}
-
+	//Read the matrix from csv file and input it in a 2d matrix array
 	public int[][] read() {
 		String csvFile = "data.csv";
 		BufferedReader br = null;
